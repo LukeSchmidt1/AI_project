@@ -26,12 +26,12 @@ while cap.isOpened():   # infinite loop if webcam opens
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     faces = detector(gray)  # inserts grayscale into pre trained detection and returns list of detected faces
-
-    print(f"Faces detected: {len(faces)}") 
+    #print(f"Faces detected: {len(faces)}") 
 
     for face in faces:      # draws rectangles around face and tracks it
         x, y, w, h = face.left(), face.top(), face.width(), face.height()
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        rectangle_color = (0, 255, 255)
 
         location = [(y, x+w, y+h, x)]
         face_encode = face_recognition.face_encodings(rgb_frame, location)
@@ -44,9 +44,11 @@ while cap.isOpened():   # infinite loop if webcam opens
             if True in matches:
                 index = matches.index(True)
                 name = names[index]
-
-        cv2.putText(frame, name, (x,y - 10), cv2.FONT_HERSHEY_PLAIN, .8, (255, 255, 255), 2)
-        print(f'Face detected: {name}')
+                rectangle_color = (255,0, 0)
+                
+        cv2.rectangle(frame, (x,y), (x+w, y+h), rectangle_color, 2)
+        cv2.putText(frame, name, (x,y - 10), cv2.FONT_HERSHEY_DUPLEX, .8, (255, 255, 255), 2)
+        print(f'Number detected: {len(faces)}\tFaces detected: {name}')
 
     cv2.imshow("Facial Tracking, Press q to exit:", frame)
 
