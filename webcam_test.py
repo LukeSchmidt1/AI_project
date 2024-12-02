@@ -6,5 +6,6 @@ if not cap.isOpened():
     print("Could not open webcam")
 else:
     print("Webcam opened successfully")
+cv2.show()
 
 cap.release()

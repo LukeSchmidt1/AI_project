@@ -26,7 +26,6 @@ while cap.isOpened():   # infinite loop if webcam opens
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     faces = detector(gray)  # inserts grayscale into pre trained detection and returns list of detected faces
-    #print(f"Faces detected: {len(faces)}") 
 
     for face in faces:      # draws rectangles around face and tracks it
         x, y, w, h = face.left(), face.top(), face.width(), face.height()
